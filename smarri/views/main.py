@@ -132,7 +132,7 @@ class MainWindow(Gtk.Window):
         ret, frame = cap.read()
 
         
-        frame = imutils.resize(frame, width=800)
+        frame = imutils.resize(frame, width=700)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
         shapes = self.detector.detect(gray)
@@ -146,10 +146,10 @@ class MainWindow(Gtk.Window):
 
         height, width, channels = frame.shape
         h = self.h_cam/height
-        #frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
+        frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
         height, width, channels = frame.shape
         x=int(round((width-self.w_cam)/2))
-        #frame = frame[y:y+self.h_cam, x:x+self.w_cam]
+        frame = frame[y:y+self.h_cam, x:x+self.w_cam]
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         pb = GdkPixbuf.Pixbuf.new_from_data(frame.tostring(),
