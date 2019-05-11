@@ -5,6 +5,13 @@ import cv2
 import numpy as np
 from views.LipsStickPallete import LipsStickPallete
 
+import argparse
+import imutils
+import drawers as drw
+import features
+
+from detector import FacePartsDetector
+
 
 
 class MainWindow(Gtk.Window):
@@ -41,6 +48,10 @@ class MainWindow(Gtk.Window):
 
         self.add(hbox)
 
+        self.set_faceProcessor()
+
+        
+
     def set_lips(self):
         self.lipsIcon = Gtk.Image()
         self.lipsIcon.set_from_file("resources/images/red_lips_icon.png")
@@ -61,16 +72,16 @@ class MainWindow(Gtk.Window):
 
     def set_eyes(self):
         self.eyesIcon = Gtk.Image()
-        self.eyesIcon.set_from_file("resources/images/eye_icon2.png")
+        self.eyesIcon.set_from_file("resources/images/eye_icon.png")
         self.eyesButton = Gtk.Button()
         self.eyesButton.set_image(self.eyesIcon)
         self.eyesButton.connect("clicked", self.on_eyes_click)
 
 
 
-        #eyesColorChooser = Gtk.ColorChooserWidget()
+        eyesColorChooser = Gtk.ColorChooserWidget()
 
-        eyesColorChooser = LipsStickPallete()
+        #eyesColorChooser = LipsStickPallete()
 
 
 
@@ -102,18 +113,44 @@ class MainWindow(Gtk.Window):
         self.adButtonPopover.show_all()
         self.adButtonPopover.popup()
 
+    def set_faceProcessor(self):
+        ap = argparse.ArgumentParser()
+        ap.add_argument('-p', '--shape-predictor', dest='shape_predictor', required=True,help='path to facial landmark predictor')
+        ap.add_argument('-s', '--source', dest='source',type=int, default=0, help='device index')
+        ap.add_argument('-a', '--alpha', dest='alpha', type=float, default=0.25, help='alpha')
+        args = ap.parse_args()
+        self.detector = FacePartsDetector(args.shape_predictor, ['mouth', 'right_eye', 'left_eye', 'right_eyebrow', 'left_eyebrow', 'nose', 'jaw'])
+        self.mouth_drawer = drw.MouthDrawer()
+        self.eyes_drawer = drw.EyesDrawer()
+        self.skin_color = features.SkinColorFeature()
+        self.qr_code = features.QRCodeFeature()
+
 
     def show_frame(self, *args):
         x=0
         y=0
         ret, frame = cap.read()
+
+        
+        frame = imutils.resize(frame, width=800)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+        shapes = self.detector.detect(gray)
+        self.skin_color.get(frame, shapes)
+        self.qr_code.get(frame, shapes)  
+        self.eyes_drawer.draw(frame, shapes, ( 183, 163, 255), 0.1)
+        self.mouth_drawer.draw(frame, shapes, ( 99, 49,  222), 0.2)
+
+
+
+
         height, width, channels = frame.shape
         h = self.h_cam/height
-        frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
+        #frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
         height, width, channels = frame.shape
         x=int(round((width-self.w_cam)/2))
-        frame = frame[y:y+self.h_cam, x:x+self.w_cam]
-     
+        #frame = frame[y:y+self.h_cam, x:x+self.w_cam]
+
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         pb = GdkPixbuf.Pixbuf.new_from_data(frame.tostring(),
                                             GdkPixbuf.Colorspace.RGB,
@@ -123,6 +160,7 @@ class MainWindow(Gtk.Window):
                                             frame.shape[0],
                                             frame.shape[2]*frame.shape[1])
         self.mirror.set_from_pixbuf(pb.copy())
+
         return True
 
 cap = cv2.VideoCapture(0)
