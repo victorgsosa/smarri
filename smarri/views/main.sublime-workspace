@@ -1,0 +1,232 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"y",
+				"y"
+			],
+			[
+				"camera",
+				"camera_capture"
+			],
+			[
+				"_",
+				"_capfreq"
+			],
+			[
+				"fra",
+				"frameId"
+			],
+			[
+				"frame",
+				"frameRate"
+			],
+			[
+				"fr",
+				"frameId"
+			],
+			[
+				"pn",
+				"pngRep"
+			],
+			[
+				"su",
+				"_surl"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/main.py",
+		"/Users/juanmarriaga/Downloads/hello.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/sentAnalysis/package.json",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/sentimentAnalysis/Procfile",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/sentimentAnalysis/package.json",
+		"/Users/juanmarriaga/Documents/3. Académico/SAP_PowerWeek2018/Day3/resources/Exercise 07/sapui5_neo-app_snippet.json",
+		"/Users/juanmarriaga/Downloads/facial_expressions-master/data/filenames.txt",
+		"/Users/juanmarriaga/Downloads/facial_expressions-master/retrain-image.json",
+		"/Users/juanmarriaga/Downloads/facial_expressions-master/imagePrepare.py",
+		"/Users/juanmarriaga/Documents/3. Académico/ComitesTecnicos/LumiraExtensions/heatmap.js",
+		"/Users/juanmarriaga/Downloads/facial_expressions-master/python/dwdii.py",
+		"/Users/juanmarriaga/Documents/3. Académico/SAP_PowerWeek2018/Day3/resources/Exercise 08/retrain-image.json",
+		"/Users/juanmarriaga/Documents/2. Perceptio/5. Innovacion/MarriShoppingCar/retrain-image.json",
+		"/Users/juanmarriaga/Documents/3. Académico/SAP_PowerWeek2018/Day3/resources/Exercise 08/retraining_settings_snippet.json",
+		"/Users/juanmarriaga/Downloads/BOCSSLib",
+		"/Users/juanmarriaga/Library/Application Support/Sublime Text 3/Packages/HTML-CSS-JS Prettify/HTMLPrettify.sublime-settings",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoManager/videoCapture.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoManager/videoManager.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoManager/services/iotStream.py",
+		"/Users/juanmarriaga/Documents/3. Académico/SAP_PowerWeek2018/resources/Exercise 08/retraining_settings_snippet.json",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoManager/services/videoCapture2.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoManager/model/camera.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoCapture/videoCapture.py",
+		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/videoCapture/videoManager2.py"
+	],
+	"find":
+	{
+		"height": 66.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 66.0
+	},
+	"input":
+	{
+		"height": 66.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "main.sublime-project",
+	"replace":
+	{
+		"height": 128.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 197.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
