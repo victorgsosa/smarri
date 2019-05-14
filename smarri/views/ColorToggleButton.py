@@ -10,7 +10,6 @@ class ColorToggleButton(Gtk.ToggleButton):
 		self.name=name
 		da=Gtk.DrawingArea()
 		da.set_size_request(24,24)
-		#print("button",self.get_allocation().width ,self.get_allocation().height )
 		da.connect("draw",self.on_draw)
 		self.add(da)
 		self.color = color
@@ -21,7 +20,6 @@ class ColorToggleButton(Gtk.ToggleButton):
 		cr.set_source_rgba(self.color[0]/255, self.color[1]/255, self.color[2]/255,1);
 		cr.rectangle(0, 0, width, height)
 		cr.fill()
-		#print("draw",width,height)
 		return False
 
 	def get_name(self):

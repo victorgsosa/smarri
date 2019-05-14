@@ -34,11 +34,9 @@ class ColorPalette(Gtk.Box):
 
 	def on_button_toggled(self, button, name):
 		if button.get_active():
-			self.selectedColor = self.palette[button.get_name()]
-			#print("selected", self.selectedColor)	
+			self.selectedColor = self.palette[button.get_name()]	
 			for x in self.buttons:
 				if x.get_name() != button.get_name():
-					print("X", x.get_name(), "button", button.get_name())
 					x.set_active(False) 
 	
 	def get_sel_color(self):
