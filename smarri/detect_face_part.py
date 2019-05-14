@@ -37,13 +37,13 @@ cap = cv2.VideoCapture(args.source)
 
 mouth_drawer = DRAWERS['mouth']
 eyes_drawer = DRAWERS['eyes']
-skin_color = features.SkinColorFeature()
+skin_color = features.SkinCategoryFeature()
 qr_code = features.QRCodeFeature()
 while(True):
 	# load the input image, resize it, and convert it to grayscale
 
 	_, image = cap.read()
-	image = imutils.resize(image, width=500)
+	image = imutils.resize(image, width=900)
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	
 	shapes = detector.detect(gray)

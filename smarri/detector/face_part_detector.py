@@ -29,14 +29,12 @@ class FacePartsDetector(object):
 
 	def detect(self, image):
 		rects = self._detector(image, 1)
-		parts = {}
-		for part_name in self._part_names:
-			(i,j) = FACIAL_LANDMARKS_IDXS[part_name]
-			detections = []
-			for ( _, rect) in enumerate(rects):
-				shape = self._predictor(image, rect)
-				shape = self._shape_to_np(shape)
-				detections.append(shape[i:j])
-			parts[part_name] = detections
+		parts = { part_name: [] for part_name in self._part_names }
+		for ( _, rect) in enumerate(rects):
+			shape = self._predictor(image, rect)
+			shape = self._shape_to_np(shape)
+			for part_name in self._part_names:
+				(i,j) = FACIAL_LANDMARKS_IDXS[part_name]
+				parts[part_name].append(shape[i:j])
 		return parts
 
