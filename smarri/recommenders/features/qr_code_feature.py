@@ -11,4 +11,4 @@ class QRCodeFeature(AbstractFeature):
 		data,_,_ = self._decoder.detectAndDecode(gray)
 		if len(data)>0:
 			print("Decoded Data : {}".format(data))
-		return data
+		return [data] if len(data)>0 else []

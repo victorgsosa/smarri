@@ -8,10 +8,11 @@ CATEGORIES = np.array([[118.1975, 143.7675, 204.41],[85.9725, 114.6075, 165.36],
 class SkinCategoryFeature(SkinColorFeature):
 	def get(self, image, shapes):
 		colors = super().get(image, shapes)
-		categories = []
-		for color in colors:
-			dist = CATEGORIES - color
-			dist = np.sum(dist * dist, axis=1)
-			category = np.argmin(dist, axis=0)
-			categories.append(category)
+		categories = [ self._category(color) for color in colors]
 		return categories
+
+	def _category(self, color):
+		dist = CATEGORIES - color
+		dist = np.sum(dist * dist, axis=1)
+		category = np.argmin(dist, axis=0)
+		return category
