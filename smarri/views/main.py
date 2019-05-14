@@ -3,7 +3,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib, GdkPixbuf
 import cv2
 import numpy as np
-from views.LipsStickPallete import LipsStickPallete
+from views.ColorPalette import ColorPalette
 
 import argparse
 import imutils
@@ -11,6 +11,34 @@ import drawers as drw
 import features
 
 from detector import FacePartsDetector
+
+
+eyePalette = {'color1': [77,0,0],
+             'color2': [103,4,34],
+             'color3': [133,4,56],
+             'color4': [64,3,62],
+             'color5': [5,0,58],
+             'color6': [178,216,216],
+             'color7': [102,178,178],
+             'color8': [0,128,128],
+             'color9': [0,102,102],
+             'color10': [0,76,76],
+             'color11': [141,85,36],
+             'color12': [198,134,66],
+             'color13': [224,172,105],
+             'color14': [241,194,125],
+             'color15': [255,219,172]}
+
+lipstickPalette = {'color1': [249,135,135],
+             'color2': [231,106,106],
+             'color3': [214,91,91],
+             'color4': [193,75,75],
+             'color5': [184,63,63],
+             'color6': [249,21,21],
+             'color7': [208,9,9],
+             'color8': [150,16,16],
+             'color9': [171,0,0],
+             'color10': [105,0,0]}
 
 
 
@@ -59,10 +87,10 @@ class MainWindow(Gtk.Window):
         self.lipsButton.set_image(self.lipsIcon)
         self.lipsButton.connect("clicked", self.on_lips_click)
 
-        lipsColorChooser = Gtk.ColorChooserWidget()
+        self.lipsColorChooser = ColorPalette(lipstickPalette)
 
         self.lipsButtonPopover = Gtk.Popover()
-        self.lipsButtonPopover.add(lipsColorChooser)
+        self.lipsButtonPopover.add(self.lipsColorChooser)
         self.lipsButtonPopover.set_position(Gtk.PositionType.BOTTOM)
 
     def on_lips_click(self, button):
@@ -77,17 +105,10 @@ class MainWindow(Gtk.Window):
         self.eyesButton.set_image(self.eyesIcon)
         self.eyesButton.connect("clicked", self.on_eyes_click)
 
-
-
-        eyesColorChooser = Gtk.ColorChooserWidget()
-
-        #eyesColorChooser = LipsStickPallete()
-
-
-
+        self.eyesColorChooser = ColorPalette(eyePalette)
 
         self.eyesButtonPopover = Gtk.Popover()
-        self.eyesButtonPopover.add(eyesColorChooser)
+        self.eyesButtonPopover.add(self.eyesColorChooser)
         self.eyesButtonPopover.set_position(Gtk.PositionType.BOTTOM)
 
     def on_eyes_click(self, button):
@@ -137,9 +158,13 @@ class MainWindow(Gtk.Window):
     
         shapes = self.detector.detect(gray)
         self.skin_color.get(frame, shapes)
-        self.qr_code.get(frame, shapes)  
-        self.eyes_drawer.draw(frame, shapes, ( 183, 163, 255), 0.1)
-        self.mouth_drawer.draw(frame, shapes, ( 99, 49,  222), 0.2)
+        self.qr_code.get(frame, shapes)
+        eyes_sel_color = self.eyesColorChooser.get_sel_color()
+        if len(eyes_sel_color)>0:
+            self.eyes_drawer.draw(frame, shapes, (eyes_sel_color[2], eyes_sel_color[1], eyes_sel_color[0]), 0.3)
+        lips_sel_color = self.lipsColorChooser.get_sel_color()
+        if len(lips_sel_color)>0:
+            self.mouth_drawer.draw(frame, shapes, ( lips_sel_color[2], lips_sel_color[1],  lips_sel_color[0]), 0.4)
 
 
 
