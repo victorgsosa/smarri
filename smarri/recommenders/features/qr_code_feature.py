@@ -1,14 +1,14 @@
 import cv2
+import pyzbar.pyzbar as pyzbar
 
 from .abstract_feature import AbstractFeature
 
+
 class QRCodeFeature(AbstractFeature):
-	def __init__(self):
-		self._decoder = cv2.QRCodeDetector()
 
 	def get(self, image, shapes):
 		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-		data,_,_ = self._decoder.detectAndDecode(gray)
-		if len(data)>0:
-			print("Decoded Data : {}".format(data))
-		return [data] if len(data)>0 else []
+		objects = pyzbar.decode(gray)
+		if len(objects)>0:
+			print("Decoded Data : {}".format(objects))
+		return [object.data.decode('ascii') for object in objects]
