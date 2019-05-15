@@ -58,7 +58,11 @@ args = ap.parse_args()
  
 detector = FacePartsDetector(args.shape_predictor, ['mouth', 'right_eye', 'left_eye', 'right_eyebrow', 'left_eyebrow', 'nose', 'jaw'])
 camera = PiCamera()
-rawCapture = PiRGBArray(camera)
+resolution = (800, 600)
+camera.resolution = resolution
+camera.framerate = 32
+
+rawCapture = PiRGBArray(camera, size=resolution)
 
 mouth_drawer = DRAWERS['mouth']
 eyes_drawer = DRAWERS['eyes']
@@ -67,22 +71,19 @@ qr_code = features.QRCodeFeature()
 skin_rec = recommenders.DictRecommender(skin_color, SKIN_COLORS)
 qr_rec = recommenders.DictRecommender(qr_code, QR_CODE_COLORS)
 
-while(True):
-	# load the input image, resize it, and convert it to grayscale
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	image = frame.array
+	image = imutils.resize(image, width=900)
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	shapes = detector.detect(gray)
+	skin_predict = skin_rec.predict(image, shapes)
+	qr_predict = qr_rec.predict(image, shapes)	
+	print(qr_predict)
+	eyes_drawer.draw(image, shapes, ( 183, 163, 255), 0.1)
+	mouth_drawer.draw(image, shapes, ( 99, 49,  222), 0.2)
 
-	camera.capture(rawCapture, format='bgr')
-	image = rawCapture.array
-	if image is not None:
-		image = imutils.resize(image, width=900)
-		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-		shapes = detector.detect(gray)
-		skin_predict = skin_rec.predict(image, shapes)
-		qr_predict = qr_rec.predict(image, shapes)	
-		print(qr_predict)
-		eyes_drawer.draw(image, shapes, ( 183, 163, 255), 0.1)
-		mouth_drawer.draw(image, shapes, ( 99, 49,  222), 0.2)
-
-		cv2.imshow('Image', image)
-		if cv2.waitKey(1) & 0xFF == ord('q'):
-			cv2.destroyAllWindows()
-			break
+	cv2.imshow('Image', image)
+	rawCapture.truncate(0)
+	if cv2.waitKey(1) & 0xFF == ord('q'):
+		cv2.destroyAllWindows()
+		break
