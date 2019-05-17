@@ -78,8 +78,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	shapes = detector.detect(gray)
 	skin_predict = skin_rec.predict(image, shapes)
 	qr_predict = qr_rec.predict(image, shapes)	
-	print(qr_predict)
-	eyes_drawer.draw(image, shapes, ( 183, 163, 255), 0.1)
+	eyes_drawer.draw(image, shapes, ( 183, 163, 255), 0.15)
 	mouth_drawer.draw(image, shapes, ( 99, 49,  222), 0.2)
 
 	cv2.imshow('Image', image)

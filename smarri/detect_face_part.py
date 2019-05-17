@@ -67,14 +67,13 @@ qr_rec = recommenders.DictRecommender(qr_code, QR_CODE_COLORS)
 while(True):
 	# load the input image, resize it, and convert it to grayscale
 
-	rep, image = cap.read()
-	if rep is not None:
+	_, image = cap.read()
+	if image is not None:
 		image = imutils.resize(image, width=900)
 		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 		shapes = detector.detect(gray)
 		skin_predict = skin_rec.predict(image, shapes)
 		qr_predict = qr_rec.predict(image, shapes)	
-		print(qr_predict)
 		eyes_drawer.draw(image, shapes, ( 183, 163, 255), 0.1)
 		mouth_drawer.draw(image, shapes, ( 99, 49,  222), 0.2)
 
