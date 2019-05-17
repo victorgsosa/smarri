@@ -5,30 +5,12 @@ from gi.repository import Gtk, GObject
 
 from views.RecommendationToggleButton import RecommendationToggleButton
 
-recommendations ={ 'Blanco': {
-					'rec1':{'eyes':[103,4,34],'lips':[249,135,135]},
-					'rec2':{'eyes':[102,178,178],'lips':[105,0,0]},
-					'rec3':{'eyes':[141,85,36],'lips':[231,106,106]}},
-
-					'Mestizo': {
-					'rec1':{'eyes':[133,4,56],'lips':[171,0,0]},
-					'rec2':{'eyes':[178,216,216],'lips':[214,91,91]},
-					'rec3':{'eyes':[198,134,66],'lips':[150,16,16]}},
-
-					'Negro': {
-					'rec1':{'eyes':[64,3,62],'lips':[193,75,75]},
-					'rec2':{'eyes':[0,128,128],'lips':[208,9,9]},
-					'rec3':{'eyes':[255,219,172],'lips':[184,63,63]}}
-	
-}
-
-
 
 class RecommendationChooser(Gtk.Box, GObject.GObject):
 
 	__gsignals__ = {
         'recSelected': (GObject.SIGNAL_RUN_FIRST, None,
-                      (int,int,int,int,int,int,))
+                      (int,int,int,float,int,int,int,float,))
     }
 
 	def __init__(self,recommendation,name):
@@ -71,7 +53,7 @@ class RecommendationChooser(Gtk.Box, GObject.GObject):
 				self.button1.set_active(False)
 				self.sel_eColor = self.recommendation["rec3"]["eyes"]
 				self.sel_lColor = self.recommendation["rec3"]["lips"]
-			self.emit("recSelected",self.sel_eColor[0],self.sel_eColor[1],self.sel_eColor[2],self.sel_lColor[0],self.sel_lColor[1],self.sel_lColor[2])
+			self.emit("recSelected",self.sel_eColor[0],self.sel_eColor[1],self.sel_eColor[2],self.sel_eColor[3],self.sel_lColor[0],self.sel_lColor[1],self.sel_lColor[2],self.sel_lColor[3])
 					 
 	
 	def get_sel_eColor(self):

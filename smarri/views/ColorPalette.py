@@ -11,7 +11,7 @@ class ColorPalette(Gtk.Box, GObject.GObject):
 
 	__gsignals__ = {
         'colorSelected': (GObject.SIGNAL_RUN_FIRST, None,
-                      (int,int,int,))
+                      (int,int,int,float,))
     }
 
 	def __init__(self, palette):
@@ -43,7 +43,7 @@ class ColorPalette(Gtk.Box, GObject.GObject):
 			for x in self.buttons:
 				if x.get_name() != button.get_name():
 					x.set_active(False) 
-			self.emit("colorSelected",self.selectedColor[0],self.selectedColor[1],self.selectedColor[2])
+			self.emit("colorSelected",self.selectedColor[0],self.selectedColor[1],self.selectedColor[2],self.selectedColor[3])
 	
 	def get_sel_color(self):
 		return self.selectedColor
