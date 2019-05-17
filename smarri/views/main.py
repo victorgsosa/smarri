@@ -275,7 +275,7 @@ class MainWindow(Gtk.Window):
             if len(self.qr_predict)>0:
                 if "mouth" in self.qr_predict[0]:
                     self.qr_detected("mouth",self.qr_predict[0]["mouth"][0],self.qr_predict[0]["color"])
-                elif "eyes" in self.qr_predict:
+                elif "eyes" in self.qr_predict[0]:
                     self.qr_detected("eyes",self.qr_predict[0]["eyes"][0],self.qr_predict[0]["color"])
 
 

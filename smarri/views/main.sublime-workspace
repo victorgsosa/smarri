@@ -4,8 +4,156 @@
 		"selected_items":
 		[
 			[
+				"set",
+				"set_sel_color\t(ColorPalette.py)"
+			],
+			[
+				"cle",
+				"clear_qrPanel"
+			],
+			[
+				"p",
+				"print"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"Col",
+				"ColorPalette"
+			],
+			[
+				"ap",
+				"append"
+			],
+			[
+				"ad",
+				"adChooser1"
+			],
+			[
+				"Rec",
+				"RecommendationChooser"
+			],
+			[
+				"Re",
+				"RecommendationChooser"
+			],
+			[
+				"h",
+				"hide"
+			],
+			[
+				"sh",
+				"show"
+			],
+			[
+				"pre",
+				"predict\t(detect_face_part.py)"
+			],
+			[
+				"pa",
+				"pack_start\t(main.py)"
+			],
+			[
+				"lisp",
+				"lipstickPalette"
+			],
+			[
+				"lips",
+				"lipstickPalette"
+			],
+			[
+				"li",
+				"lipstickPalette\t(main.py)"
+			],
+			[
+				"skin",
+				"skin_predict"
+			],
+			[
+				"skin_",
+				"skin_predict"
+			],
+			[
+				"qr",
+				"qr_predict"
+			],
+			[
+				"se",
+				"selectedColor"
+			],
+			[
+				"eye",
+				"eyePalette"
+			],
+			[
+				"lip",
+				"lipsColorChooser"
+			],
+			[
+				"get_se",
+				"get_sel_color\t(ColorPalette.py)"
+			],
+			[
+				"get_s",
+				"get_sel_color"
+			],
+			[
 				"if",
-				"ifmain\tif __name__ == '__main__'"
+				"if\tIf Condition"
+			],
+			[
+				"Color",
+				"ColorPaletteLine"
+			],
+			[
+				"ColorP",
+				"ColorPaletteLine"
+			],
+			[
+				"ColorPale",
+				"ColorPaletteLine\t(ColorPaletteLine.py)"
+			],
+			[
+				"button",
+				"buttons"
+			],
+			[
+				"with",
+				"width"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"self",
+				"self"
+			],
+			[
+				"eys",
+				"eyesColorChooser"
+			],
+			[
+				"w_",
+				"w_cam"
+			],
+			[
+				"im",
+				"import"
+			],
+			[
+				"ret",
+				"return\t(main.py)"
+			],
+			[
+				"Pop",
+				"PopoverWindow"
+			],
+			[
+				"dr",
+				"draw_area"
 			],
 			[
 				"y",
@@ -84,6 +232,22 @@
 	},
 	"file_history":
 	[
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/ColorToggleButton.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/ColorPalette.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/detect_face_part.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/RecommendationToggleButton.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/RecommendationChooser.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/recommenders/features/skin_color_feature.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/detector/face_part_detector.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/smarri.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/ColorPaletteLine.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/recommenders/base_recommender.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/recommenders/features/skin_category_feature.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/recommenders/features/qr_code_feature.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/detect_face_part_picamera.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/test.glade",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/test.py",
+		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/test.glade.xml",
 		"/Users/juanmarriaga/Proyectos/smarri/git/smarri/views/main.py",
 		"/Users/juanmarriaga/Downloads/hello.py",
 		"/Users/juanmarriaga/Proyectos/Heatstore/git/heatstore/sentAnalysis/package.json",
@@ -111,7 +275,7 @@
 	],
 	"find":
 	{
-		"height": 66.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -149,7 +313,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 66.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -186,7 +350,7 @@
 	"project": "main.sublime-project",
 	"replace":
 	{
-		"height": 128.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
