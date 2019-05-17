@@ -1,13 +1,18 @@
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 
 from views.ColorToggleButton import ColorToggleButton
 from views.ColorPaletteLine import ColorPaletteLine
 
 
 
-class ColorPalette(Gtk.Box):
+class ColorPalette(Gtk.Box, GObject.GObject):
+
+	__gsignals__ = {
+        'colorSelected': (GObject.SIGNAL_RUN_FIRST, None,
+                      (int,int,int,))
+    }
 
 	def __init__(self, palette):
 		super().__init__(orientation=Gtk.Orientation.VERTICAL, spacing = 5)
@@ -38,10 +43,18 @@ class ColorPalette(Gtk.Box):
 			for x in self.buttons:
 				if x.get_name() != button.get_name():
 					x.set_active(False) 
+			self.emit("colorSelected",self.selectedColor[0],self.selectedColor[1],self.selectedColor[2])
 	
 	def get_sel_color(self):
 		return self.selectedColor
-		
+
+	def set_sel_color(self,name):
+		for x in self.buttons:
+			if x.get_name() == name:
+				x.set_active(True)
+
+
+GObject.type_register(ColorPalette)
 
 
 
