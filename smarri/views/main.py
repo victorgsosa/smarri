@@ -166,9 +166,9 @@ class MainWindow(Gtk.Window):
         self.adButton.set_image(self.adIcon)
         self.adButton.connect("clicked", self.on_advice_click)
 
-        self.adChooser1 = RecommendationChooser(recBlanco,"Blanco")
-        self.adChooser2 = RecommendationChooser(recMestizo,"Mestizo")
-        self.adChooser3 = RecommendationChooser(recNegro,"Negro")
+        self.adChooser1 = RecommendationChooser(recBlanco,"Clara")
+        self.adChooser2 = RecommendationChooser(recMestizo,"Media")
+        self.adChooser3 = RecommendationChooser(recNegro,"Oscura")
         self.adChooser1.connect("recSelected", self.on_recSelected)
         self.adChooser2.connect("recSelected", self.on_recSelected)
         self.adChooser3.connect("recSelected", self.on_recSelected)
@@ -256,52 +256,52 @@ class MainWindow(Gtk.Window):
         x=0
         y=0
         ret, frame = cap.read()
+        if frame is not None:
 
+            frame = imutils.resize(frame, width=700)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         
-        frame = imutils.resize(frame, width=700)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    
-        shapes = self.detector.detect(gray)
-        
-        self.qr_predict=self.qr_rec.predict(frame, shapes)
-        if len(self.qr_predict)>0:
-            if "mouth" in self.qr_predict[0]:
-                self.qr_detected("mouth",self.qr_predict[0]["mouth"][0],self.qr_predict[0]["color"])
-            elif "eyes" in self.qr_predict:
-                self.qr_detected("eyes",self.qr_predict[0]["eyes"][0],self.qr_predict[0]["color"])
+            shapes = self.detector.detect(gray)
+            
+            self.qr_predict=self.qr_rec.predict(frame, shapes)
+            if len(self.qr_predict)>0:
+                if "mouth" in self.qr_predict[0]:
+                    self.qr_detected("mouth",self.qr_predict[0]["mouth"][0],self.qr_predict[0]["color"])
+                elif "eyes" in self.qr_predict:
+                    self.qr_detected("eyes",self.qr_predict[0]["eyes"][0],self.qr_predict[0]["color"])
 
 
 
 
 
-        self.skin_predict=self.skin_rec.predict(frame, shapes)
+            self.skin_predict=self.skin_rec.predict(frame, shapes)
 
-        if len(self.eyes_sel_color)>0:
-            self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), 0.1)
-        if len(self.lips_sel_color)>0:
-            self.mouth_drawer.draw(frame, shapes, ( self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), 0.2)
-
-
+            if len(self.eyes_sel_color)>0:
+                self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), 0.1)
+            if len(self.lips_sel_color)>0:
+                self.mouth_drawer.draw(frame, shapes, ( self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), 0.2)
 
 
-        height, width, channels = frame.shape
-        h = self.h_cam/height
-        frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
-        height, width, channels = frame.shape
-        x=int(round((width-self.w_cam)/2))
-        frame = frame[y:y+self.h_cam, x:x+self.w_cam]
 
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        pb = GdkPixbuf.Pixbuf.new_from_data(frame.tostring(),
-                                            GdkPixbuf.Colorspace.RGB,
-                                            False,
-                                            8,
-                                            frame.shape[1],
-                                            frame.shape[0],
-                                            frame.shape[2]*frame.shape[1])
-        self.mirror.set_from_pixbuf(pb.copy())
 
-        return True
+            height, width, channels = frame.shape
+            h = self.h_cam/height
+            frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
+            height, width, channels = frame.shape
+            x=int(round((width-self.w_cam)/2))
+            frame = frame[y:y+self.h_cam, x:x+self.w_cam]
+
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pb = GdkPixbuf.Pixbuf.new_from_data(frame.tostring(),
+                                                GdkPixbuf.Colorspace.RGB,
+                                                False,
+                                                8,
+                                                frame.shape[1],
+                                                frame.shape[0],
+                                                frame.shape[2]*frame.shape[1])
+            self.mirror.set_from_pixbuf(pb.copy())
+
+            return True
 
 cap = cv2.VideoCapture(0)
 
