@@ -56,7 +56,6 @@ class RecommendationChooser(Gtk.Box, GObject.GObject):
 	def on_button_toggled(self, button, name):
 		if button.get_active():
 			self.selectedButton = button.get_name()
-			print("selectedButton",self.selectedButton)
 			if self.selectedButton=="rec1":
 				self.button2.set_active(False)
 				self.button3.set_active(False)

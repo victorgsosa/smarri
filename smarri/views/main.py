@@ -182,14 +182,11 @@ class MainWindow(Gtk.Window):
     def on_advice_click(self, button):
         if "skinColor" in self.skin_predict[0]:
             if self.vBox.get_center_widget()!=None:
-                print("Center widget not none")
                 self.vBox.remove(self.vBox.get_center_widget())
 
             if self.skin_predict[0]["skinColor"]=="Blanco":
-                print("entro a blanco")
                 self.vBox.set_center_widget(self.adChooser1)
             elif self.skin_predict[0]["skinColor"]=="Mestizo":
-                print("entro a Mestizo")
                 self.vBox.set_center_widget(self.adChooser2)
             else:
                 self.vBox.set_center_widget(self.adChooser3)
@@ -267,7 +264,6 @@ class MainWindow(Gtk.Window):
         shapes = self.detector.detect(gray)
         
         self.qr_predict=self.qr_rec.predict(frame, shapes)
-        print("QR",self.qr_predict)
         if len(self.qr_predict)>0:
             if "mouth" in self.qr_predict[0]:
                 self.qr_detected("mouth",self.qr_predict[0]["mouth"][0],self.qr_predict[0]["color"])
@@ -280,11 +276,8 @@ class MainWindow(Gtk.Window):
 
         self.skin_predict=self.skin_rec.predict(frame, shapes)
 
-
-        #eyes_sel_color = self.eyesColorChooser.get_sel_color()
         if len(self.eyes_sel_color)>0:
             self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), 0.1)
-        #lips_sel_color = self.lipsColorChooser.get_sel_color()
         if len(self.lips_sel_color)>0:
             self.mouth_drawer.draw(frame, shapes, ( self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), 0.2)
 
