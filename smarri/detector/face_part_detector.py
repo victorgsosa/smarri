@@ -1,7 +1,10 @@
 import numpy as np
 import dlib
+import imutils
+import cv2
 
 from collections import OrderedDict 
+from utils.decorators import timing
 
 FACIAL_LANDMARKS_IDXS = OrderedDict([
 	("mouth", (48, 68)),
@@ -27,12 +30,24 @@ class FacePartsDetector(object):
 			coords[i] = (shape.part(i).x, shape.part(i).y)
 		return coords
 
+	@timing
 	def detect(self, image):
-		rects = self._detector(image, 1)
+		true_shape = image.shape
+		if image.shape[1] > 500:
+			scaled = imutils.resize(image, width = 500)
+		else:
+			scaled = image
+		scaled_shape = scaled.shape
+		hr = scaled_shape[0] / true_shape[0]
+		wr = scaled_shape[1] / true_shape[1]
+		gray = cv2.cvtColor(scaled, cv2.COLOR_BGR2GRAY)
+		rects = self._detector(gray, 1)
 		parts = { part_name: [] for part_name in self._part_names }
 		for ( _, rect) in enumerate(rects):
-			shape = self._predictor(image, rect)
+			shape = self._predictor(gray, rect)
 			shape = self._shape_to_np(shape)
+			shape[:, 0] = shape[:, 0] / hr
+			shape[:, 1] = shape[:, 1] / wr
 			for part_name in self._part_names:
 				(i,j) = FACIAL_LANDMARKS_IDXS[part_name]
 				parts[part_name].append(shape[i:j])

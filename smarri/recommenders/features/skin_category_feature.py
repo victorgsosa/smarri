@@ -15,5 +15,4 @@ class SkinCategoryFeature(SkinColorFeature):
 		dist = CATEGORIES - color
 		dist = np.sum(dist * dist, axis=1)
 		category = np.argmin(dist, axis=0)
-		print(category)
 		return category

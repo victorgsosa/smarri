@@ -5,4 +5,4 @@ pycairo>=1.18.1
 PyGObject>=3.32.1
 pyzbar>=0.1.8
 imutils>=0.5.2
-picamera[array]>=1.13
+picamera>=1.13

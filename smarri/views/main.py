@@ -6,13 +6,14 @@ import numpy as np
 from views.ColorPalette import ColorPalette
 from views.RecommendationChooser import RecommendationChooser
 
-import argparse
 import imutils
 import drawers as drw
 import recommenders
 import recommenders.features as features
 
-from detector import FacePartsDetector
+from utils.decorators import timing
+from utils.stream import RecommenderStream
+
 
 
 eyePalette = {'ecolor1': [77,0,0,0.1],
@@ -77,15 +78,15 @@ QR_CODE_COLORS = {
 
 class MainWindow(Gtk.Window):
 
-    def __init__(self):
+    def __init__(self, stream):
         
         Gtk.Window.__init__(self, title="Smart Make Up Mirror")
         #screen_width=self.get_screen().get_width()
         #screen_height=self.get_screen().get_height()
-        screen_width=800
-        screen_height=600
+        screen_width=1280
+        screen_height=720
 
-
+        self.stream = stream
         self.set_border_width(10)
         self.set_size_request(screen_width,screen_height)
 
@@ -231,18 +232,14 @@ class MainWindow(Gtk.Window):
     
 
     def set_faceProcessor(self):
-        ap = argparse.ArgumentParser()
-        ap.add_argument('-p', '--shape-predictor', dest='shape_predictor', required=True,help='path to facial landmark predictor')
-        ap.add_argument('-s', '--source', dest='source',type=int, default=0, help='device index')
-        ap.add_argument('-a', '--alpha', dest='alpha', type=float, default=0.25, help='alpha')
-        args = ap.parse_args()
-        self.detector = FacePartsDetector(args.shape_predictor, ['mouth', 'right_eye', 'left_eye', 'right_eyebrow', 'left_eyebrow', 'nose', 'jaw'])
         self.mouth_drawer = drw.MouthDrawer()
         self.eyes_drawer = drw.EyesDrawer()
         self.skin_color = features.SkinCategoryFeature()
         self.qr_code = features.QRCodeFeature()
-        self.skin_rec = recommenders.DictRecommender(self.skin_color, SKIN_COLORS)
-        self.qr_rec = recommenders.DictRecommender(self.qr_code, QR_CODE_COLORS)
+        skin_rec = recommenders.DictRecommender(self.skin_color, SKIN_COLORS)
+        qr_rec = recommenders.DictRecommender(self.qr_code, QR_CODE_COLORS)
+        self.skin_rec = RecommenderStream(self.stream, skin_rec).start()
+        self.qr_rec = RecommenderStream(self.stream, qr_rec).start()
 
     def qr_detected(self,facePart,rgba,color):
         if facePart == "eyes":
@@ -259,19 +256,14 @@ class MainWindow(Gtk.Window):
         self.qrLabel.set_text("")
             
 
-    
+    @timing
     def show_frame(self, *args):
         x=0
         y=0
-        ret, frame = cap.read()
+        frame, shapes = self.stream.read()
         if frame is not None:
 
-            frame = imutils.resize(frame, width=700)
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        
-            shapes = self.detector.detect(gray)
-            
-            self.qr_predict=self.qr_rec.predict(frame, shapes)
+            self.qr_predict=self.qr_rec.read()
             if len(self.qr_predict)>0:
                 if "mouth" in self.qr_predict[0]:
                     self.qr_detected("mouth",self.qr_predict[0]["mouth"][0],self.qr_predict[0]["color"])
@@ -282,7 +274,7 @@ class MainWindow(Gtk.Window):
 
 
 
-            self.skin_predict=self.skin_rec.predict(frame, shapes)
+            self.skin_predict=self.skin_rec.read()
 
             if len(self.eyes_sel_color)>0:
                 self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
@@ -293,11 +285,12 @@ class MainWindow(Gtk.Window):
 
 
             height, width, channels = frame.shape
+
             h = self.h_cam/height
-            frame = cv2.resize(frame, None, fx=h, fy=h, interpolation = cv2.INTER_CUBIC)
-            height, width, channels = frame.shape
-            x=int(round((width-self.w_cam)/2))
-            frame = frame[y:y+self.h_cam, x:x+self.w_cam]
+            frame = cv2.resize(frame, None, fy = h, fx = h, interpolation = cv2.INTER_AREA )
+            #height, width, channels = frame.shape
+            #x=int(round((width-self.w_cam)/2))
+            #frame = frame[y:y+self.h_cam, x:x+self.w_cam]
 
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pb = GdkPixbuf.Pixbuf.new_from_data(frame.tostring(),
@@ -307,9 +300,8 @@ class MainWindow(Gtk.Window):
                                                 frame.shape[1],
                                                 frame.shape[0],
                                                 frame.shape[2]*frame.shape[1])
-            self.mirror.set_from_pixbuf(pb.copy())
+            self.mirror.set_from_pixbuf(pb)
 
             return True
 
-cap = cv2.VideoCapture(0)
 

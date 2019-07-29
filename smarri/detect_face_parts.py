@@ -40,7 +40,7 @@ ap.add_argument("-f", "--face-part", dest='face_part', required=True,
 	help="face_part")
 ap.add_argument('-s', '--source', dest='source',type=int, default=0, help='device index')
 args = ap.parse_args()
-alpha = 0.25
+alpha = 0.2
  
 # initialize dlib's face detector (HOG-based) and then create
 # the facial landmark predictor
@@ -53,9 +53,13 @@ while(True):
 	# load the input image, resize it, and convert it to grayscale
 
 	_, image = cap.read()
-	image = imutils.resize(image, width=500)
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	 
+	size = image.shape
+	scaled = imutils.resize(image, width=500)
+	scaled_size = scaled.shape
+	h = scaled_size[0] / size[0]
+	w = scaled_size[1] / size[1]
+	gray = cv2.cvtColor(scaled, cv2.COLOR_BGR2GRAY)
+	
 	# detect faces in the grayscale image
 	rects = detector(gray, 1)
 	clone = image.copy()
@@ -66,16 +70,21 @@ while(True):
 		# convert the landmark (x, y)-coordinates to a NumPy array
 		shape = predictor(gray, rect)
 		shape = shape_to_np(shape)
+		shape[:, 0] = shape[:, 0] / h
+		shape[:, 1] = shape[:, 1] / w
 		(i,j) = FACIAL_LANDMARKS_IDXS[name]
 
-		cv2.putText(clone, name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
-				0.7, (0, 0, 255), 2)
 	 
 		# loop over the subset of facial landmarks, drawing the
 		# specific face part
 		hull = cv2.convexHull(shape[i:j])
-		cv2.drawContours(overlay, [hull], -1, (79, 240, 76), -1)
+		cv2.drawContours(overlay, [hull], -1, (249,135,135), -1)
+		overlay = cv2.resize(overlay, (size[1], size[0]), interpolation = cv2.INTER_AREA)
 		cv2.addWeighted(overlay, alpha, clone, 1 - alpha, 0, clone)
+	cv2.cvtColor(clone, cv2.COLOR_BGRA2BGR)
+
+	cv2.putText(clone, name, (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
+				0.7, (0, 0, 255), 2)
 	cv2.imshow("Image", clone)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
