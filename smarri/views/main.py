@@ -277,11 +277,10 @@ class MainWindow(Gtk.Window):
             self.skin_predict=self.skin_rec.read()
 
             if len(self.eyes_sel_color)>0:
-                self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
+                frame = self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
             if len(self.lips_sel_color)>0:
-                self.mouth_drawer.draw(frame, shapes, (self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), self.lips_sel_color[3])
-                
 
+                frame = self.mouth_drawer.draw(frame, shapes, (self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), self.lips_sel_color[3])
 
 
 
@@ -290,7 +289,7 @@ class MainWindow(Gtk.Window):
             
 
             h = self.h_cam/height
-            frame = cv2.resize(frame, None, fy = h, fx = h, interpolation = cv2.INTER_AREA )
+            frame = cv2.resize(frame, None, fy = h, fx = h, interpolation = cv2.INTER_NEAREST )
             #height, width, channels = frame.shape
             #x=int(round((width-self.w_cam)/2))
             #frame = frame[y:y+self.h_cam, x:x+self.w_cam]

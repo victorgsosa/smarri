@@ -11,15 +11,16 @@ class SkinColorFeature(AbstractFeature):
 
 	def get(self, image, shapes):
 		colors = []
+		hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV)
 		for nose in shapes['nose']:
 			detect_point = nose[2]
-			x = self._clamp(detect_point[0], RADIUS, image.shape[1]-1-RADIUS)
-			y = self._clamp(detect_point[1], RADIUS, image.shape[0]-1-RADIUS)
+			x = self._clamp(detect_point[0], RADIUS, hsv.shape[1]-1-RADIUS)
+			y = self._clamp(detect_point[1], RADIUS, hsv.shape[0]-1-RADIUS)
 			xmin = x - RADIUS
 			xmax = x + RADIUS
 			ymin = y - RADIUS
 			ymax = y + RADIUS
-			color = image[ymin:ymax, xmin:xmax]
+			color = hsv[ymin:ymax, xmin:xmax]
 			color = np.mean(color, axis=(0,1))
 			colors.append(color)
 			#cv2.circle(image, tuple(detect_point), RADIUS, tuple(color) , -1)

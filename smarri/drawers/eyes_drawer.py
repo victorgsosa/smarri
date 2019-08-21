@@ -24,5 +24,6 @@ class EyesDrawer(AbstractDrawer):
 			right_pts = right_pts.reshape((-1,1,2))
 			cv2.fillPoly(overlay, [left_pts], color)
 			cv2.fillPoly(overlay, [right_pts], color)
-		cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0, image)
+		image = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0)
+		return image
 
