@@ -147,10 +147,10 @@ class MainWindow(Gtk.Window):
                 self.lips_sel_color = self.lipsMakeup.get_lips_sel_color()
             
             if len(self.eyes_sel_color)>0:
-                self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
+                frame = self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
                         
             if len(self.lips_sel_color)>0:
-                self.mouth_drawer.draw(frame, shapes, (self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), self.lips_sel_color[3])
+                frame = self.mouth_drawer.draw(frame, shapes, (self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), self.lips_sel_color[3])
 
             height, width, channels = frame.shape
             
