@@ -61,6 +61,12 @@ class RecommendationChooser(Gtk.Box, GObject.GObject):
 
 	def get_sel_lColor(self):
 		return self.sel_lColor
+
+	def reset_recommendation(self):
+		self.button1.set_active(False)
+		self.button2.set_active(False)
+		self.button3.set_active(False)
+
 		
 GObject.type_register(RecommendationChooser)
 

@@ -53,6 +53,10 @@ class ColorPalette(Gtk.Box, GObject.GObject):
 			if x.get_name() == name:
 				x.set_active(True)
 
+	def reset_palette(self):
+		for x in self.buttons:
+			x.set_active(False)
+
 
 GObject.type_register(ColorPalette)
 

@@ -280,11 +280,14 @@ class MainWindow(Gtk.Window):
                 self.eyes_drawer.draw(frame, shapes, (self.eyes_sel_color[2], self.eyes_sel_color[1], self.eyes_sel_color[0]), self.eyes_sel_color[3])
             if len(self.lips_sel_color)>0:
                 self.mouth_drawer.draw(frame, shapes, (self.lips_sel_color[2], self.lips_sel_color[1],  self.lips_sel_color[0]), self.lips_sel_color[3])
+                
+
 
 
 
 
             height, width, channels = frame.shape
+            
 
             h = self.h_cam/height
             frame = cv2.resize(frame, None, fy = h, fx = h, interpolation = cv2.INTER_AREA )
@@ -297,9 +300,9 @@ class MainWindow(Gtk.Window):
                                                 GdkPixbuf.Colorspace.RGB,
                                                 False,
                                                 8,
-                                                frame.shape[1],
-                                                frame.shape[0],
-                                                frame.shape[2]*frame.shape[1])
+                                                width,
+                                                height,
+                                                channels*width)
             self.mirror.set_from_pixbuf(pb)
 
             return True
