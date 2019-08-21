@@ -3,17 +3,17 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject
 from views.RecommendationChooser import RecommendationChooser
 
-recBlanco= {'rec1':{'eyes':[103,4,34,0.1],'lips':[249,135,135,0.2]},
-            'rec2':{'eyes':[102,178,178,0.05],'lips':[105,0,0,0.2]},
-            'rec3':{'eyes':[141,85,36,0.1],'lips':[231,106,106,0.2]}}
+recBlanco= {'rec1':{'eyes':[185,118,132,0.1],'lips':[105,0,0,0.2]},
+            'rec2':{'eyes':[64,3,62,0.1],'lips':[184,63,63,0.2]},
+            'rec3':{'eyes':[0,102,102,0.1],'lips':[150,16,16,0.2]}}
 
-recMestizo= {'rec1':{'eyes':[133,4,56,0.1],'lips':[171,0,0,0.2]},
-             'rec2':{'eyes':[178,216,216,0.05],'lips':[214,91,91,0.2]},
-             'rec3':{'eyes':[198,134,66,0.05],'lips':[150,16,16,0.2]}}
+recMestizo= {'rec1':{'eyes':[141,85,36,0.1],'lips':[150,16,16,0.2]},
+             'rec2':{'eyes':[103,4,34,0.1],'lips':[249,21,21,0.2]},
+             'rec3':{'eyes':[185,118,132,0.1],'lips':[193,75,75,0.2]}}
 
-recNegro= { 'rec1':{'eyes':[64,3,62,0.1],'lips':[193,75,75,0.2]},
-            'rec2':{'eyes':[0,128,128,0.05],'lips':[208,9,9,0.2]},
-            'rec3':{'eyes':[255,219,172,0.05],'lips':[184,63,63,0.2]}}
+recNegro= { 'rec1':{'eyes':[178,216,216,0.05],'lips':[231,106,106,0.15]},
+            'rec2':{'eyes':[224,172,105,0.05],'lips':[184,63,63,0.2]},
+            'rec3':{'eyes':[103,4,34,0.1],'lips':[150,16,16,0.2]}}
 
 
 class SmartMakeup(Gtk.Button, GObject.GObject):

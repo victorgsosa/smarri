@@ -6,7 +6,7 @@ from views.ColorPalette import ColorPalette
 
 eyePalette = {'ecolor1': [77,0,0,0.1],
              'ecolor2': [103,4,34,0.1],
-             'ecolor3': [133,4,56,0.1],
+             'ecolor3': [185,118,132,0.1],
              'ecolor4': [64,3,62,0.1],
              'ecolor5': [5,0,58,0.1],
              'ecolor6': [178,216,216,0.05],

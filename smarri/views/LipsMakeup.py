@@ -4,9 +4,9 @@ from gi.repository import Gtk, GObject
 from views.ColorPalette import ColorPalette
 
 
-lipstickPalette = {'lcolor1': [249,135,135,0.2],
-             'lcolor2': [231,106,106,0.2],
-             'lcolor3': [214,91,91,0.2],
+lipstickPalette = {'lcolor1': [249,135,135,0.15],
+             'lcolor2': [231,106,106,0.15],
+             'lcolor3': [214,91,91,0.15],
              'lcolor4': [193,75,75,0.2],
              'lcolor5': [184,63,63,0.2],
              'lcolor6': [249,21,21,0.2],
