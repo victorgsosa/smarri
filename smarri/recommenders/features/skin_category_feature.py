@@ -1,9 +1,12 @@
+import logging
 import numpy as np
+
 
 from .skin_color_feature import SkinColorFeature
 from collections import OrderedDict
 
-CATEGORIES = np.array([[118.1975, 143.7675, 204.41],[103.185, 129.35, 186.31], [96.53, 121.575, 168.6075]])
+
+CATEGORIES = np.array([[9.535,  130.3075, 118.01],[ 8.955, 115.4875, 172.2525], [10.075, 126.75, 74.195]])
 
 class SkinCategoryFeature(SkinColorFeature):
 	def get(self, image, shapes):
@@ -15,4 +18,5 @@ class SkinCategoryFeature(SkinColorFeature):
 		dist = CATEGORIES - color
 		dist = np.sum(dist * dist, axis=1)
 		category = np.argmin(dist, axis=0)
+		logging.debug("Skin category %d" % category)
 		return category

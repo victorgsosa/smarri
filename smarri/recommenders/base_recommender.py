@@ -8,5 +8,5 @@ class DictRecommender(AbstractRecommender):
 
 	@timing
 	def predict(self, image, shapes):
-		colors = [self._colors[value] for value in self._feature.get(image, shapes)]
+		colors = [self._colors[value] for value in self._feature.get(image, shapes) if value in self._colors]
 		return colors

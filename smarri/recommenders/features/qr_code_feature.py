@@ -12,5 +12,5 @@ class QRCodeFeature(AbstractFeature):
 		objects = pyzbar.decode(gray)
 		if objects: 
 			log = logging.getLogger()
-			log.info("Detected QR value %s" % objects)
+			log.error("Detected QR value %s" % objects)
 		return [object.data.decode('ascii') for object in objects]

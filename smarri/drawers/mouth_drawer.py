@@ -18,4 +18,5 @@ class MouthDrawer(AbstractDrawer):
 				pts = mouth[idx]
 				pts = pts.reshape((-1,1,2))
 				cv2.fillPoly(overlay, [pts], color)
-		cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0, image)
+		image = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0)
+		return image

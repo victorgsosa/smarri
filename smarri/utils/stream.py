@@ -3,7 +3,7 @@ import recommenders.features as features
 import cv2
 
 
-from threading import Thread
+from threading import Thread, Lock
 from detector import FacePartsDetector
 from recommenders import DictRecommender
 
@@ -16,6 +16,7 @@ class VideoStream(object):
 		self.detector = detector
 		_, self.image = self.stream.read()
 		self.shapes = self.detector.detect(self.image)
+		self.lock = Lock()
 
 	def start(self):
 		t = Thread(target=self.update, args=())
@@ -23,17 +24,15 @@ class VideoStream(object):
 		t.start()
 		return self
 
+	
 	def update(self):
 		while(True):
 			if self.stopped:
 				return
 			_, image = self.stream.read()
 			if image is not None:
-				
-				shapes = self.detector.detect(image)
-
 				self.image = image
-				self.shapes = shapes
+				self.shapes = self.detector.detect(image)
 			
 
 	def read(self):
